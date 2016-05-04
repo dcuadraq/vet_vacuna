@@ -24,7 +24,7 @@ class OwnersController < ApplicationController
   # POST /owners
   # POST /owners.json
   def create
-    owner = Owner.new(owner_params)
+    owner_form = OwnerForm.new(owner_params)
 
     respond_to do |format|
       if owner.save
@@ -32,7 +32,7 @@ class OwnersController < ApplicationController
         format.json { render :show, status: :created, location: @owner }
       else
         format.html { render :new }
-        format.json { render json: @owner.errors, status: :unprocessable_entity }
+        format.json { render json: owner_form. errors, status: :unprocessable_entity }
       end
     end
   end
