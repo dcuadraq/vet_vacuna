@@ -1,6 +1,7 @@
 class OwnersController < ApplicationController
   before_action :owner, only: [:show, :edit, :update, :destroy]
-
+  expose(:owner)
+  expose(:owners)
   # GET /owners
   # GET /owners.json
   def index
@@ -13,7 +14,7 @@ class OwnersController < ApplicationController
 
   # GET /owners/new
   def new
-    self.owner = Owner.new
+    owner = Owner.new
   end
 
   # GET /owners/1/edit
@@ -23,7 +24,7 @@ class OwnersController < ApplicationController
   # POST /owners
   # POST /owners.json
   def create
-    self.owner = Owner.new(owner_params)
+    owner = Owner.new(owner_params)
 
     respond_to do |format|
       if owner.save
@@ -66,20 +67,5 @@ class OwnersController < ApplicationController
   def owner_params
     params.require(:owner).permit(:name, :lastname, :phone)
   end
-
-  def owners
-    Owner.all
-  end
-
-  def owner=obj
-    @owner = obj
-  end
-
-  def owner
-    @owner ||= owners.find(params[:id])
-  end
-
-  helper_method :owner
-  helper_method :owners
 
 end
