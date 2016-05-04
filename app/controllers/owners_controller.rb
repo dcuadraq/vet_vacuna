@@ -2,43 +2,34 @@ class OwnersController < ApplicationController
   before_action :owner, only: [:show, :edit, :update, :destroy]
   expose(:owner)
   expose(:owners)
-  # GET /owners
-  # GET /owners.json
+
   def index
   end
 
-  # GET /owners/1
-  # GET /owners/1.json
   def show
   end
 
-  # GET /owners/new
   def new
     owner = Owner.new
   end
 
-  # GET /owners/1/edit
   def edit
   end
 
-  # POST /owners
-  # POST /owners.json
   def create
     owner_form = OwnerForm.new(owner_params)
 
     respond_to do |format|
-      if owner.save
+      if owner_form.save
         format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
         format.json { render :show, status: :created, location: @owner }
       else
         format.html { render :new }
-        format.json { render json: owner_form. errors, status: :unprocessable_entity }
+        format.json { render json: owner_form.owner.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /owners/1
-  # PATCH/PUT /owners/1.json
   def update
     respond_to do |format|
       if owner.update(owner_params)
@@ -51,8 +42,6 @@ class OwnersController < ApplicationController
     end
   end
 
-  # DELETE /owners/1
-  # DELETE /owners/1.json
   def destroy
     owner.destroy
     respond_to do |format|
@@ -62,8 +51,6 @@ class OwnersController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  # Never trust parameters from the scary internet, only allow the white list through.
   def owner_params
     params.require(:owner).permit(:name, :lastname, :phone)
   end
