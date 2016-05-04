@@ -28,11 +28,11 @@ class OwnersController < ApplicationController
 
     respond_to do |format|
       if owner.save
-        format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
-        format.json { render :show, status: :created, location: @owner }
+        format.html { redirect_to owner, notice: 'Owner was successfully created.' }
+        format.json { render :show, status: :created, location: owner }
       else
         format.html { render :new }
-        format.json { render json: @owner.errors, status: :unprocessable_entity }
+        format.json { render json: owner.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,8 +42,8 @@ class OwnersController < ApplicationController
   def update
     respond_to do |format|
       if owner.update(owner_params)
-        format.html { redirect_to @owner, notice: 'Owner was successfully updated.' }
-        format.json { render :show, status: :ok, location: @owner }
+        format.html { redirect_to owner, notice: 'Owner was successfully updated.' }
+        format.json { render :show, status: :ok, location: owner }
       else
         format.html { render :edit }
         format.json { render json: @owner.errors, status: :unprocessable_entity }
