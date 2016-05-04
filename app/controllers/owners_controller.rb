@@ -1,10 +1,9 @@
 class OwnersController < ApplicationController
-  before_action :set_owner, only: [:show, :edit, :update, :destroy]
+  before_action :owner, only: [:show, :edit, :update, :destroy]
 
   # GET /owners
   # GET /owners.json
   def index
-    @owners = Owner.all
   end
 
   # GET /owners/1
@@ -14,7 +13,7 @@ class OwnersController < ApplicationController
 
   # GET /owners/new
   def new
-    @owner = Owner.new
+    self.owner = Owner.new
   end
 
   # GET /owners/1/edit
@@ -24,10 +23,10 @@ class OwnersController < ApplicationController
   # POST /owners
   # POST /owners.json
   def create
-    @owner = Owner.new(owner_params)
+    self.owner = Owner.new(owner_params)
 
     respond_to do |format|
-      if @owner.save
+      if owner.save
         format.html { redirect_to @owner, notice: 'Owner was successfully created.' }
         format.json { render :show, status: :created, location: @owner }
       else
@@ -41,7 +40,7 @@ class OwnersController < ApplicationController
   # PATCH/PUT /owners/1.json
   def update
     respond_to do |format|
-      if @owner.update(owner_params)
+      if owner.update(owner_params)
         format.html { redirect_to @owner, notice: 'Owner was successfully updated.' }
         format.json { render :show, status: :ok, location: @owner }
       else
@@ -54,7 +53,7 @@ class OwnersController < ApplicationController
   # DELETE /owners/1
   # DELETE /owners/1.json
   def destroy
-    @owner.destroy
+    owner.destroy
     respond_to do |format|
       format.html { redirect_to owners_url, notice: 'Owner was successfully destroyed.' }
       format.json { head :no_content }
@@ -62,13 +61,25 @@ class OwnersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_owner
-      @owner = Owner.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def owner_params
+    params.require(:owner).permit(:name, :lastname, :phone)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def owner_params
-      params.require(:owner).permit(:name, :lastname, :phone)
-    end
+  def owners
+    Owner.all
+  end
+
+  def owner=obj
+    @owner = obj
+  end
+
+  def owner
+    @owner ||= owners.find(params[:id])
+  end
+
+  helper_method :owner
+  helper_method :owners
+
 end
