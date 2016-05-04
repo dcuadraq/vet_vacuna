@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'coffee-rails', '~> 4.1.0'
 gem 'decent_exposure'
+gem 'virtus'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'rails', '4.2.5'
