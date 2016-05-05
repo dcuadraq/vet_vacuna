@@ -1,7 +1,7 @@
 class OwnersController < ApplicationController
-  before_action :owner, only: [:show, :edit, :update, :destroy]
   expose(:owner)
   expose(:owners)
+  expose(:owner_form) { OwnerForm.new(owner_params, owner: owner) }
 
   def index
   end
@@ -9,23 +9,18 @@ class OwnersController < ApplicationController
   def show
   end
 
-  def new
-    owner = Owner.new
-  end
-
   def edit
   end
 
   def create
-    owner_form = OwnerForm.new(owner_params)
-
     respond_to do |format|
-      if owner.save
-        format.html { redirect_to owner, notice: 'Owner was successfully created.' }
+      if owner_form.save
+        format.html { redirect_to owner_path(owner_form.owner),
+                      notice: 'Owner was successfully created.' }
         format.json { render :show, status: :created, location: owner }
       else
         format.html { render :new }
-        format.json { render json: owner.errors, status: :unprocessable_entity }
+        format.json { render json: owner_form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,7 +47,7 @@ class OwnersController < ApplicationController
 
   private
   def owner_params
-    params.require(:owner).permit(:name, :lastname, :phone)
+    return {} unless params[:owner].present?
   end
 
 end
