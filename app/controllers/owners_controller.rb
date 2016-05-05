@@ -15,7 +15,7 @@ class OwnersController < ApplicationController
   def create
     respond_to do |format|
       if owner_form.save
-        format.html { redirect_to owner_path(owner_form.owner),
+        format.html { redirect_to owner_form.owner,
                       notice: 'Owner was successfully created.' }
         format.json { render :show, status: :created, location: owner }
       else

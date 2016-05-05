@@ -44,6 +44,9 @@ class OwnerForm
   end
 
   def persist!
+    self.owner.name = name
+    self.owner.lastname = lastname
+    self.owner.phone = phone
     self.owner.save!
   end
 
