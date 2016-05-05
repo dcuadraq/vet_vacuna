@@ -48,6 +48,7 @@ class OwnersController < ApplicationController
   private
   def owner_params
     return {} unless params[:owner].present?
+    params.require(:owner).permit(:name, :lastname, :phone)
   end
 
 end
