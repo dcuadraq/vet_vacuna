@@ -1,5 +1,18 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_for search_form, as: :search, url: owners_path, method: :get do |form| %>
+  <label>Name: </label>
+  <%=form.text_field :name %>
+  <br/>
+  <label>Last Name: </label>
+  <%=form.text_field :lastname %>
+  <br/>
+  <label>Phone: </label>
+  <%=form.text_field :phone %>
+  <br/>
+  <%=form.submit %>
+<% end %>
+
 <h1>Listing Owners</h1>
 
 <table>
@@ -13,16 +26,7 @@
   </thead>
 
   <tbody>
-    <% owners.each do |owner| %>
-      <tr>
-        <td><%= owner.name %></td>
-        <td><%= owner.lastname %></td>
-        <td><%= owner.phone %></td>
-        <td><%= link_to 'Show', owner %></td>
-        <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
-        <td><%= link_to 'Destroy', owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <%=render 'list' %>
   </tbody>
 </table>
 
