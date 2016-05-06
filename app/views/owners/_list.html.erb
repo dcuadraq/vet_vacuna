@@ -1,0 +1,10 @@
+<% owners.each do |owner| %>
+  <tr>
+    <td><%= owner.name %></td>
+    <td><%= owner.lastname %></td>
+    <td><%= owner.phone %></td>
+    <td><%= link_to 'Show', owner %></td>
+    <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
+    <td><%= link_to 'Destroy', owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
