@@ -1,9 +1,13 @@
 class OwnersController < ApplicationController
   expose(:owner)
   expose(:owners)
+  expose(:owner_presenter) { OwnerPresenter.new(owner) }
   expose(:owner_form) { OwnerForm.new(owner_params, owner: owner) }
+  expose(:search_form) { SearchForm.new(search_params) }
+  expose(:pets, ancestor: :owner)
 
   def index
+    self.owners = Search::OwnerSearchService.new(search_form).search!
   end
 
   def show
@@ -49,6 +53,11 @@ class OwnersController < ApplicationController
   def owner_params
     return {} unless params[:owner].present?
     params.require(:owner).permit(:name, :lastname, :phone)
+  end
+
+  def search_params
+    return {} unless params[:search].present?
+    params.require(:search)
   end
 
 end

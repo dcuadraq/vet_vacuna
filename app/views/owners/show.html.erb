@@ -1,19 +1,32 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= owner.name %>
+<strong>Name:</strong>
+<%= owner_presenter.name %>
 </p>
 
 <p>
-  <strong>Lastname:</strong>
-  <%= owner.lastname %>
+<strong>Lastname:</strong>
+<%= owner.lastname %>
 </p>
 
 <p>
-  <strong>Phone:</strong>
-  <%= owner.phone %>
+<strong>Phone:</strong>
+<%= owner.phone %>
 </p>
 
+<h2>Pets</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%=render 'pets/list' %>
+  </tbody>
+</table>
 <%= link_to 'Edit', edit_owner_path(owner) %> |
 <%= link_to 'Back', owners_path %>
